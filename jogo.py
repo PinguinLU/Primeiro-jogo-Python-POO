@@ -52,7 +52,18 @@ class Jogo:
     def iniciar_batalha(self):
         """Fazer a gestão da batalha em turnos"""
         print("Iniciando a batalha!")
-        
+        while self.heroi.get_vida() > 0 and self.inimigo.get_vida() > 0:
+            print("\nDetalhes dos Personagens:")
+            print(self.heroi.exibir_detalhes())
+            print(self.inimigo.exibir_detalhes())
+            
+            input("Pressione enter para atacar...")
+            escolha = input("Escolha (1- Ataque normal ou 2- Ataque Especial): ")
+            
+#Criar instancia do jogo e iniciar batalha
+
+jogo = Jogo()
+jogo.iniciar_batalha()
     
     
     
