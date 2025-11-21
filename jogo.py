@@ -20,6 +20,16 @@ class Personagem:
     def exibir_detalhes(self):
         return f"Nome: {self.get_nome()}\n Vida: {self.get_vida()}\n Nivel: {self.get_nivel()}"
     
+    def receber_ataque(self, dano):
+        self.__vida -= dano
+        if self.__vida < 0:
+            self.__vida = 0
+            
+    def atacar(self, alvo):
+        dano = self.__nivel * 2
+        alvo.receber_ataque(dano)
+        print(f"{self.get_nome()} Atacou {alvo.get_nome()} e causou {dano} de dano!")
+    
 class Heroi(Personagem):
     def __init__(self, nome, vida, nivel, habilidade):
         super().__init__(nome, vida, nivel)
@@ -47,7 +57,7 @@ class Jogo:
     
     def __init__(self) -> None:
         self.heroi = Heroi(nome = "Heroi", vida=100, nivel=5, habilidade="Super força")
-        self.inimigo = Inimigo(nome = "Inimigo", vida=100, nivel=4, tipo="Voador")
+        self.inimigo = Inimigo(nome = "Inimigo", vida=10, nivel=4, tipo="Voador")
         
     def iniciar_batalha(self):
         """Fazer a gestão da batalha em turnos"""
@@ -60,15 +70,17 @@ class Jogo:
             input("Pressione enter para atacar...")
             escolha = input("Escolha (1- Ataque normal ou 2- Ataque Especial): ")
             
+            if escolha == '1':
+                self.heroi.atacar(self.inimigo)
+            else:
+                print("Escolha invalida! Escolha novamente.")
+                
+        if self.heroi.get_vida() > 0:
+            print("Parabéns, voce venceu a batalha")
+        else:
+            print("Você foi derrotado.")
+               
 #Criar instancia do jogo e iniciar batalha
 
 jogo = Jogo()
 jogo.iniciar_batalha()
-    
-    
-    
-    
-heroi = Heroi(nome = "Heroi", vida=100, nivel=5, habilidade="Super força")
-print(heroi.exibir_detalhes())
-inimigo = Inimigo(nome = "Inimigo", vida=100, nivel=4, tipo="Voador")
-print(inimigo.exibir_detalhes())
