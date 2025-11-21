@@ -63,7 +63,7 @@ class Jogo:
     
     def __init__(self) -> None:
         self.heroi = Heroi(nome = "Heroi", vida=100, nivel=5, habilidade="Super força")
-        self.inimigo = Inimigo(nome = "Inimigo", vida=10, nivel=4, tipo="Voador")
+        self.inimigo = Inimigo(nome = "Inimigo", vida=50, nivel=4, tipo="Voador")
         
     def iniciar_batalha(self):
         """Fazer a gestão da batalha em turnos"""
@@ -82,6 +82,10 @@ class Jogo:
                 self.heroi.ataque_especial(self.inimigo)
             else:
                 print("Escolha invalida! Escolha novamente.")
+                
+            if self.inimigo.get_vida() > 0:
+                #inimigo ataca heroi
+                self.inimigo.atacar(self.heroi)
                 
         if self.heroi.get_vida() > 0:
             print("Parabéns, voce venceu a batalha")
